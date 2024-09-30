@@ -1,6 +1,7 @@
 package com.miki.bookstore.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.metamodel.StaticMetamodel;
 import lombok.*;
 
 @Entity
@@ -10,6 +11,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@StaticMetamodel(Book.class)
 public class Book {
 
     @Id

@@ -1,22 +1,19 @@
 package com.miki.bookstore.service;
 
 import com.miki.bookstore.model.Book;
-import com.miki.bookstore.repository.BookRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BookService
+@RequiredArgsConstructor
+public class BookService {
 
-{
-    private final BookRepository bookRepo;
+    private final BookSpecification bookSpecification;
 
-    public  BookService(BookRepository bookRepo){
-        this.bookRepo = bookRepo;
-    }
+    public List<Book> findBooks(String title, Integer publicationYear, String authorName, Double rating){
 
-    public List<Book> getAllBooks(){
-        return bookRepo.findAll();
+        return bookSpecification.findTransactionList(title, publicationYear, authorName, rating);
     }
 }
