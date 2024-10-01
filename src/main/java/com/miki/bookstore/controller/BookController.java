@@ -1,12 +1,12 @@
 package com.miki.bookstore.controller;
 
+import com.miki.bookstore.dto.BookRequestDto;
 import com.miki.bookstore.model.Book;
 import com.miki.bookstore.service.BookService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,4 +26,22 @@ public class BookController {
         List<Book> books =  bookService.findBooks(title,publicationYear,authorName,rating);
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
+    @GetMapping("/books/{id}")
+    public ResponseEntity<Book> getBookById(@PathVariable("id") Long id){
+        Book books =  bookService.findById(id);
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @PostMapping("/books")
+    public ResponseEntity<Book> saveBook(@RequestBody @Validated BookRequestDto bookRequest){
+        Book books =  bookService.saveBook(bookRequest);
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @PutMapping("/books/{id}")
+    public ResponseEntity<Book> updateBookById(@PathVariable("id") Long id, @RequestBody @Validated BookRequestDto bookRequest){
+        Book book =  bookService.updateById(id,bookRequest);
+        return new ResponseEntity<>(book, HttpStatus.OK);
+    }
+
 }
